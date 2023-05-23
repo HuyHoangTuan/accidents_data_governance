@@ -61,7 +61,7 @@ def process_crash_type(table):
             for e in element:
                 split_row.append(e.lstrip().rstrip())
         table.at[index, 'CRASH_TYPE'] = split_row
-    print(table['CRASH_TYPE'])
+    # print(table['CRASH_TYPE'])
     return table
 def clean_data(table):
     table = process_crash_data(table)
