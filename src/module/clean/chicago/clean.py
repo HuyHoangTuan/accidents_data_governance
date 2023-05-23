@@ -2,7 +2,7 @@
 from constantce import CONST
 
 
-def process_crash_data(table):
+def process_crash_date(table):
     def process_crash_day_of_week():
         day_of_week = CONST['Chicago']['DAY_OF_WEEK']
 
@@ -40,6 +40,10 @@ def process_lighting_condition(table):
     return table
 
 def process_road_defect(table):
+    for (index, row) in enumerate(table['ROAD_DEFECT']):
+        if row == 'UNKNOWN': 
+            table.at[index, 'ROAD_DEFECT'] = 'NO DEFECTS'
+    # print(table['ROAD_DEFECT'].unique())
     return table
 
 def process_sec_contributory_cause(table):
@@ -63,11 +67,26 @@ def process_crash_type(table):
         table.at[index, 'CRASH_TYPE'] = split_row
     # print(table['CRASH_TYPE'])
     return table
+
+def process_work_zone(table):
+    table['WORK_ZONE_I'] = table['WORK_ZONE_I'].fillna('N',)
+    table['WORK_ZONE_TYPE'] = table['WORK_ZONE_TYPE'].fillna('UNKNOWN')
+    table['WORKERS_PRESENT_I'] = table['WORKERS_PRESENT_I'].fillna('N')
+    for (index, row) in enumerate(table['WORK_ZONE_I']):
+        if row == 'Y':
+            table.at[index, 'WORK_ZONE_I'] = (table.at[index, 'WORK_ZONE_I'], \
+                                            table.at[index, 'WORK_ZONE_TYPE'], \
+                                            table.at[index, 'WORKERS_PRESENT_I'])
+        else:
+            table.at[index, 'WORK_ZONE_I'] = ('N',)
+    return table.drop(columns=['WORK_ZONE_TYPE', 'WORKERS_PRESENT_I'])
+
 def clean_data(table):
-    table = process_crash_data(table)
+    table = process_crash_date(table)
     table = process_alignment(table)
     table = process_lighting_condition(table)
     table = process_road_defect(table)
     # table = process_sec_contributory_cause(table)
     table = process_crash_type(table)
+    table = process_work_zone(table)
     # print(table)
