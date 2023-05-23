@@ -1,5 +1,5 @@
 ﻿import pandas as pd
-from ...constance import CONST
+from constantce import CONST
 
 def process_crash_data(table):
     def process_crash_day_of_week():
@@ -14,6 +14,7 @@ def process_crash_data(table):
         for row in table:
             row = get_day(row)
             pass
+        
 def clean_data(table):
     process_crash_data(table)    
     print(table)
