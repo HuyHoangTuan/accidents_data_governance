@@ -26,4 +26,6 @@ if __name__ == '__main__':
             df = read_data(prefix, page_number)
             df = filter_data(df, const['IGNORE_FEATURES'])
             chicago_clean_data(df)
+            path = '/'.join([CONFIG['RES_PATH'], 'cleaned', f'{prefix}_{page_number}.csv'])
+            df.to_csv(path, index=False)
     print('Finish indexing...')
