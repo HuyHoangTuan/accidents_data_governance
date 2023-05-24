@@ -64,8 +64,7 @@ def process_crash_type(table):
             element = element.split('/')
             for e in element:
                 split_row.append(e.lstrip().rstrip())
-        table.at[index, 'CRASH_TYPE'] = split_row
-    # print(table['CRASH_TYPE'])
+        table.at[index, 'CRASH_TYPE'] = split_row    
     return table
 
 def process_work_zone(table):
@@ -81,6 +80,54 @@ def process_work_zone(table):
             table.at[index, 'WORK_ZONE_I'] = ('N',)
     return table.drop(columns=['WORK_ZONE_TYPE', 'WORKERS_PRESENT_I'])
 
+def process_lane_cnt(table):
+    return table
+
+def process_intersection_related(table):
+    table['INTERSECTION_RELATED_I'] = table['INTERSECTION_RELATED_I'].fillna('N')
+    return table
+
+def process_not_right_of_way(table):
+    table['NOT_RIGHT_OF_WAY_I'] = table['NOT_RIGHT_OF_WAY_I'].fillna('N')
+    return table
+
+def process_street_direction(table):
+    table['STREET_DIRECTION'] = table['STREET_DIRECTION'].fillna('NOT DETERMINABLE')
+    return table
+
+def process_injuries_total(table):
+    table['INJURIES_TOTAL'] =   table['INJURIES_INCAPACITATING'] + \
+                                table['INJURIES_NON_INCAPACITATING'] + \
+                                table['INJURIES_REPORTED_NOT_EVIDENT'] + \
+                                table['INJURIES_NO_INDICATION'] + \
+                                table['INJURIES_UNKNOWN'] + \
+                                table['INJURIES_FATAL'] 
+    return table
+
+def process_injuries_fatal(table):
+    table['INJURIES_FATAL'] = table['INJURIES_FATAL'].fillna(0)
+    return table
+
+def process_injuries_incapacitating(table):
+    table['INJURIES_INCAPACITATING'] = table['INJURIES_INCAPACITATING'].fillna(0)
+    return table
+
+def process_injuries_non_incapacitating(table):
+    table['INJURIES_NON_INCAPACITATING'] = table['INJURIES_NON_INCAPACITATING'].fillna(0)
+    return table
+
+def process_injuries_reported_not_evident(table):
+    table['INJURIES_REPORTED_NOT_EVIDENT'] = table['INJURIES_REPORTED_NOT_EVIDENT'].fillna(0)
+    return table
+
+def process_injuries_no_indication(table):
+    table['INJURIES_NO_INDICATION'] = table['INJURIES_NO_INDICATION'].fillna(0)
+    return table
+
+def process_injuries_unknown(table):
+    table['INJURIES_UNKNOWN'] = table['INJURIES_UNKNOWN'].fillna(0)
+    return table
+
 def clean_data(table):
     table = process_crash_date(table)
     table = process_alignment(table)
@@ -89,4 +136,25 @@ def clean_data(table):
     # table = process_sec_contributory_cause(table)
     table = process_crash_type(table)
     table = process_work_zone(table)
+    table = process_lane_cnt(table)
+    table = process_intersection_related(table)
+    table = process_not_right_of_way(table)
+    table = process_street_direction(table)
+    table = process_injuries_total(table)
+    table = process_injuries_fatal(table)
+    table = process_injuries_incapacitating(table)
+    table = process_injuries_non_incapacitating(table)
+    table = process_injuries_reported_not_evident(table)
+    table = process_injuries_no_indication(table)
+    table = process_injuries_unknown(table)
+    table = process_injuries_total(table)
+    """
+    # check for any empty values
+    for column in table:
+        try:
+            print(column)
+            print(table[column].unique())
+        except:
+            pass
+    """
     # print(table)
