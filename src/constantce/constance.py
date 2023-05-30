@@ -18,7 +18,14 @@
             'LOCATION',
             'CRASH_DATE_EST_I',
             'CRASH_DATE',
-            'CRASH_MONTH'
+            'CRASH_MONTH',
+            'LANE_CNT',
+            'MOST_SEVERE_INJURY',
+            'INJURIES_TOTAL',
+            'INJURIES_REPORTED_NOT_EVIDENT',
+            'INJURIES_NO_INDICATION', 
+            'INJURIES_UNKNOWN', 
+            'CRASH_TYPE',
         ],
         'DAY_OF_WEEK': {
             'Monday': 2,

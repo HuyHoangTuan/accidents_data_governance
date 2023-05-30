@@ -134,20 +134,14 @@ def clean_data(table):
     table = process_lighting_condition(table)
     table = process_road_defect(table)
     # table = process_sec_contributory_cause(table)
-    table = process_crash_type(table)
     table = process_work_zone(table)
     table = process_lane_cnt(table)
     table = process_intersection_related(table)
     table = process_not_right_of_way(table)
     table = process_street_direction(table)
-    table = process_injuries_total(table)
     table = process_injuries_fatal(table)
     table = process_injuries_incapacitating(table)
     table = process_injuries_non_incapacitating(table)
-    table = process_injuries_reported_not_evident(table)
-    table = process_injuries_no_indication(table)
-    table = process_injuries_unknown(table)
-    table = process_injuries_total(table)
     """
     # check for any empty values
     for column in table:
