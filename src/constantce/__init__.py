@@ -1,1 +1,0 @@
-﻿from .constance import CONST
