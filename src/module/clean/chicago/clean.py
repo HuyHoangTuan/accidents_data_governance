@@ -88,6 +88,10 @@ def process_work_zone(table):
 def process_lane_cnt(table):
     return table
 
+def process_dooring(table):
+    table['DOORING_I'] = table['DOORING_I'].fillna('N')
+    return table
+
 def process_intersection_related(table):
     table['INTERSECTION_RELATED_I'] = table['INTERSECTION_RELATED_I'].fillna('N')
     table['INTERSECTION_RELATED_I'] = pd.factorize(table['INTERSECTION_RELATED_I'])[0]
@@ -98,7 +102,7 @@ def process_not_right_of_way(table):
     return table
 
 def process_street_direction(table):
-    table['STREET_DIRECTION'] = table['STREET_DIRECTION'].fillna('NOT DETERMINABLE')
+    table['STREET_DIRECTION'].fillna('X', inplace=True)
     return table
 
 def process_injuries_total(table):
@@ -111,37 +115,37 @@ def process_injuries_total(table):
     return table
 
 def process_num_units(table):
-    table['NUM_UNITS'] = table['NUM_UNITS'].fillna(0)
+    table['NUM_UNITS'] = table['NUM_UNITS'].fillna(0.)
     table['NUM_UNITS'] = table['NUM_UNITS'].apply(int)
     return table
 
 def process_injuries_fatal(table):
-    table['INJURIES_FATAL'] = table['INJURIES_FATAL'].fillna(0)
+    table['INJURIES_FATAL'] = table['INJURIES_FATAL'].fillna(0.)
     table['INJURIES_FATAL'] = table['INJURIES_FATAL'].apply(int)
     return table
 
 def process_injuries_incapacitating(table):
-    table['INJURIES_INCAPACITATING'] = table['INJURIES_INCAPACITATING'].fillna(0)
+    table['INJURIES_INCAPACITATING'] = table['INJURIES_INCAPACITATING'].fillna(0.)
     table['INJURIES_INCAPACITATING'] = table['INJURIES_INCAPACITATING'].apply(int)
     return table
 
 def process_injuries_non_incapacitating(table):
-    table['INJURIES_NON_INCAPACITATING'] = table['INJURIES_NON_INCAPACITATING'].fillna(0)
+    table['INJURIES_NON_INCAPACITATING'] = table['INJURIES_NON_INCAPACITATING'].fillna(0.)
     table['INJURIES_NON_INCAPACITATING'] = table['INJURIES_NON_INCAPACITATING'].apply(int)
     return table
 
 def process_injuries_reported_not_evident(table):
-    table['INJURIES_REPORTED_NOT_EVIDENT'] = table['INJURIES_REPORTED_NOT_EVIDENT'].fillna(0)
+    table['INJURIES_REPORTED_NOT_EVIDENT'] = table['INJURIES_REPORTED_NOT_EVIDENT'].fillna(0.)
     table['INJURIES_REPORTED_NOT_EVIDENT'] = table['INJURIES_REPORTED_NOT_EVIDENT'].apply(int)
     return table
 
 def process_injuries_no_indication(table):
-    table['INJURIES_NO_INDICATION'] = table['INJURIES_NO_INDICATION'].fillna(0)
+    table['INJURIES_NO_INDICATION'] = table['INJURIES_NO_INDICATION'].fillna(0.)
     table['INJURIES_NO_INDICATION'] = table['INJURIES_NO_INDICATION'].apply(int)
     return table
 
 def process_injuries_unknown(table):
-    table['INJURIES_UNKNOWN'] = table['INJURIES_UNKNOWN'].fillna(0)
+    table['INJURIES_UNKNOWN'] = table['INJURIES_UNKNOWN'].fillna(0.)
     table['INJURIES_UNKNOWN'] = table['INJURIES_UNKNOWN'].apply(int)
     return table
 
@@ -160,8 +164,8 @@ def clean_data(table):
     table = process_injuries_incapacitating(table)
     table = process_injuries_non_incapacitating(table)
     table = process_num_units(table)
+    table = process_dooring(table)
     """
-    
     # check for any empty values
     for column in table:
         try:
@@ -171,3 +175,4 @@ def clean_data(table):
             pass
     """
     # print(table)
+    return table

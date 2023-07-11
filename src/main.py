@@ -29,17 +29,15 @@ if __name__ == '__main__':
         for page_number in range(const['MIN_PAGE'], const['MIN_PAGE'] + const['NUM_PAGE']):
             df = read_data(prefix, page_number)
             df = filter_data(df, const['IGNORE_FEATURES'])
-            chicago_clean_data(df)
-            df = filter_data(df, const['FEATURES_REMOVED_POST_CLEAN'])
+            df = chicago_clean_data(df)
             if data_df is None:
                 data_df = df
             else:
-                pd.concat([data_df, df], ignore_index=True)
-        # df = pd.read_csv(path, dtype=const['DATA_TYPES'])
+                data_df = pd.concat([data_df, df], ignore_index=True)
         label_encoder = LabelEncoder()
         for column in data_df.columns:
-            print(column)
-            print(data_df[column].unique())
+            # print(column)
+            # print(data_df[column].unique())
             data_df[column] = label_encoder.fit_transform(data_df[column])
         data_df.to_csv(path, index=False)
         
