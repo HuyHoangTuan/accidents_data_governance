@@ -35,11 +35,12 @@ if __name__ == '__main__':
             else:
                 data_df = pd.concat([data_df, df], ignore_index=True)
         label_encoder = LabelEncoder()
-        for column in data_df.columns:
-            # print(column)
-            # print(data_df[column].unique())
-            data_df[column] = label_encoder.fit_transform(data_df[column])
         data_df.to_csv(path, index=False)
+        for column in data_df.columns:
+            print(column)
+            print(data_df[column].unique())
+            data_df[column] = label_encoder.fit_transform(data_df[column])
+        # data_df.to_csv(path, index=False)
         
     print('Finish indexing...')
     

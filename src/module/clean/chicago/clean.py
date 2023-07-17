@@ -149,6 +149,9 @@ def process_injuries_unknown(table):
     table['INJURIES_UNKNOWN'] = table['INJURIES_UNKNOWN'].apply(int)
     return table
 
+def process_most_severe_injury(table):
+    return table.dropna(subset='MOST_SEVERE_INJURY')
+
 def clean_data(table):
     table = process_crash_date(table)
     table = process_alignment(table)
@@ -160,11 +163,12 @@ def clean_data(table):
     table = process_intersection_related(table)
     table = process_not_right_of_way(table)
     table = process_street_direction(table)
-    table = process_injuries_fatal(table)
-    table = process_injuries_incapacitating(table)
-    table = process_injuries_non_incapacitating(table)
+    # table = process_injuries_fatal(table)
+    # table = process_injuries_incapacitating(table)
+    # table = process_injuries_non_incapacitating(table)
     table = process_num_units(table)
     table = process_dooring(table)
+    table = process_most_severe_injury(table)
     """
     # check for any empty values
     for column in table:
