@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print('Start indexing...')
     for prefix in CONFIG['DATA_PREFIX']:
         const = CONST[prefix]
-        path = '/'.join([CONFIG['RES_PATH'], 'cleaned', f'{prefix}.csv'])
+        path = '/'.join([CONFIG['RES_PATH'], 'ready_to_use', f'{prefix}.csv'])
         data_df = None
         for page_number in range(const['MIN_PAGE'], const['MIN_PAGE'] + const['NUM_PAGE']):
             df = read_data(prefix, page_number)
